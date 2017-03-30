@@ -3,7 +3,7 @@ module pste
 
 using MatpowerCases;
 
-export idx_brch,idx_bus,idx_gen,idx_cost,ybus,zbus;
+#export idx_brch,idx_bus,idx_gen,idx_cost,ybus,zbus;
 export t_pste;
 
 include("idx_brch.jl");
