@@ -1,10 +1,5 @@
 include("pste.jl")
 
 #pste.t_pste()
-
-pste.disp("kkkk")
-
-f=open("fault.txt","r")
-pste.readdata(f)
-
-close(f)
+psc=pste.CaseIEEE9()
+Ybus=pste.ybus(psc["bus"],psc["branch"],psc["baseMVA"])
