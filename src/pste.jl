@@ -5,7 +5,8 @@ using MatpowerCases;
 
 
 #export idx_brch,idx_bus,idx_gen,idx_cost,ybus,zbus;
-export t_pste,CaseIEEE9,PsteOption;
+export t_pste,CaseIEEE9,PsteOption,run_sc;
+export myinv;
 
 export idx_brch,idx_bus,idx_gen,idx_cost,ybus,zbus;
 
@@ -22,7 +23,8 @@ include("PsteOption.jl")
 include("CaseIEEE9.jl")
 
 
-
+include("common.jl")
+include("run_series.jl")
 include("readcase.jl");
 
 
