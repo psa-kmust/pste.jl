@@ -1,6 +1,6 @@
 function CaseMorden5()
 
-  psc=Dict{String,Any}();
+  psc=Dict{AbstractString,Any}();
 
   psc["baseMVA"]=100;
 

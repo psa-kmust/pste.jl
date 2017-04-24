@@ -1,5 +1,5 @@
 function PsteOption()
-  opt=Dict{String,Any}()
+  opt=Dict{AbstractString,Any}()
   #pf
   opt["pf.alg"]=1  #1--nl,2--pq
 
