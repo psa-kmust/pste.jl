@@ -155,10 +155,11 @@ function bustypes(bus,gen)
 
     ##### status of GEN have not been considered
     ##### http://blog.csdn.net/wowotuo/article/details/44899773
-    
-    ref = find(typelist.==REF);   ## reference bus index
-    pv  = find(typelist.== PV);   ## PV bus indices
-    pq  = find(typelist.== PQ);   ## PQ bus indices
+    gen_on=bus_gen_status.*typelist;
+
+    ref = find(gen_on.==REF);   ## reference bus index
+    pv  = find(gen_on.== PV);   ## PV bus indices
+    pq  = find(gen_on.== PQ);   ## PQ bus indices
 
     ## pick a new reference bus if for some reason there is none (may have been shut down)
     if isempty(ref)
