@@ -168,3 +168,21 @@ function bustypes(bus,gen)
     end
     return ref,pv,pq
 end
+########################################
+
+function bustype(bus,gen)
+    ref=Int32[]
+    pv=Int32[]
+    pq=Int32[]
+    nb=size(bus,1)
+    for i=1:nb
+        if bus[i,2]==3
+            push!(ref,i)
+        elseif bus[i,2]==2
+                push!(pv,i)
+            else
+                push!(pq,i)
+        end
+    end
+    return ref,pv,pq
+end

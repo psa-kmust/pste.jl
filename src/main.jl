@@ -11,10 +11,10 @@ F_BUS, T_BUS, BR_R, BR_X, BR_B, RATE_A, RATE_B,RATE_C, TAP, SHIFT, BR_STATUS, PF
 
 bus,branch,gen,baseMVA=pste.Dict2Array(psc)
 
-print(bus[:,BUS_TYPE])
+#print(bus[:,BUS_TYPE])
 
 opt=pste.PsteOption()
 Ybus=pste.ybus(bus,branch,baseMVA)
 print(Ybus)
-Zbus=pste.myinv(Ybus)
-print(Zbus)
+#Zbus=pste.myinv(Ybus)
+#print(Zbus)

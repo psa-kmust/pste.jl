@@ -1,4 +1,4 @@
-function [V, converged, i] = newtonpf(Ybus, Sbus, V0, ref, pv, pq, psteopt)
+function newtonpf(Ybus, Sbus, V0, ref, pv, pq, psteopt)
 
 
 
@@ -6,26 +6,26 @@ function [V, converged, i] = newtonpf(Ybus, Sbus, V0, ref, pv, pq, psteopt)
 tol     = psteopt.pf.tol
 max_it  = psteopt.pf.max_it
 
-%% initialize
+# initialize
 converged = 0;
 i = 0;
 V = V0;
 Va = angle(V);
 Vm = abs(V);
 
-%% set up indexing for updating V
+# set up indexing for updating V
 npv = length(pv);
 npq = length(pq);
-j1 = 1;         j2 = npv;           %% j1:j2 - V angle of pv buses
-j3 = j2 + 1;    j4 = j2 + npq;      %% j3:j4 - V angle of pq buses
-j5 = j4 + 1;    j6 = j4 + npq;      %% j5:j6 - V mag of pq buses
+j1 = 1;         j2 = npv;           #  j1:j2 - V angle of pv buses
+j3 = j2 + 1;    j4 = j2 + npq;      # j3:j4 - V angle of pq buses
+j5 = j4 + 1;    j6 = j4 + npq;      # j5:j6 - V mag of pq buses
 
-%% evaluate F(x0)
+# evaluate F(x0)
 mis = V .* conj(Ybus * V) - Sbus(Vm);
 F = [   real(mis([pv; pq]));
         imag(mis(pq))   ];
 
-%% check tolerance
+# check tolerance
 normF = norm(F, inf);
 if mpopt.verbose > 1
     fprintf('\n it    max P & Q mismatch (p.u.)');
@@ -39,12 +39,12 @@ if normF < tol
     end
 end
 
-%% do Newton iterations
+# do Newton iterations
 while (~converged && i < max_it)
-    %% update iteration counter
+   # update iteration counter
     i = i + 1;
     
-    %% evaluate Jacobian
+    # evaluate Jacobian
     [dSbus_dVm, dSbus_dVa] = dSbus_dV(Ybus, V);
     [dummy, neg_dSd_dVm] = Sbus(Vm);
     dSbus_dVm = dSbus_dVm - neg_dSd_dVm;
@@ -57,10 +57,10 @@ while (~converged && i < max_it)
     J = [   j11 j12;
             j21 j22;    ];
 
-    %% compute update step
+    # compute update step
     dx = -(J \ F);
 
-    %% update voltage
+    # update voltage
     if npv
         Va(pv) = Va(pv) + dx(j1:j2);
     end
@@ -72,13 +72,13 @@ while (~converged && i < max_it)
     Vm = abs(V);            %% update Vm and Va again in case
     Va = angle(V);          %% we wrapped around with a negative Vm
 
-    %% evalute F(x)
+    # evalute F(x)
     mis = V .* conj(Ybus * V) - Sbus(Vm);
     F = [   real(mis(pv));
             real(mis(pq));
             imag(mis(pq))   ];
 
-    %% check for convergence
+    # check for convergence
     normF = norm(F, inf);
     if mpopt.verbose > 1
         fprintf('\n%3d        %10.3e', i, normF);
